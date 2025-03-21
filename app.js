@@ -24,7 +24,7 @@ app.use(methodOverride('_method'));
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
-    saveUnitialized: false,
+    saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URL
     }),

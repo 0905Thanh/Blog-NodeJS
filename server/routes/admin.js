@@ -5,7 +5,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const adminLayout = '../view/layouts/admin';
+const adminLayout = 'layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
 
 
@@ -49,6 +49,8 @@ router.get('/admin', async (req, res) => {
 });
 
 
+
+
 /*
 // POST
 // Admin - Check Login
@@ -79,13 +81,31 @@ router.post('/admin', async (req, res) => {
 });
 
 
+// // GET
+// // Admin - Dashboard
+// router.get('/dashboard', authMiddleware, async (req, res) => {
+//     try {
+//         const locals = {
+//             title: "Dashboard", 
+//             description: "Simple Blog created with NodeJs, Express & MongoDb."
+//         }
 
+//         const data = await Post.find();
+//         res.render('admin/dashboard', {
+//             locals,
+//             data,
+//             layout: adminLayout
+//         });
+//     } catch (error) {
+//         console.log(error);
+//     }
+// });
 
 /*
-// GET
+// Post
 // Admin - Dashboard
 */
-router.post('/dashboard', authMiddleware, async (req, res) => {
+router.get('/dashboard', authMiddleware, async (req, res) => {
     try {
         const locals = {
             title: "Dashboard", 
@@ -120,6 +140,7 @@ router.get('/add-post', authMiddleware, async (req, res) => {
         const data = await Post.find();
         res.render('admin/add-post', {
             locals,
+            data,
             layout: adminLayout
         });
         

@@ -5,14 +5,14 @@
 
 <ul class="admin-posts">
 
-    <% data.forEach(element => { %>
+    <% data.forEach(post => { %>
      
         <li>
             <a href="/post/<%= post._id %>">
                 <%= post.title %> &nearr;
             </a>
             <div class="admin-post-controls">
-                <a href="/edit-post/<%= post_.id %>" class="btn">Edit</a>
+                <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
 
 
 

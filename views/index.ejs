@@ -1,5 +1,5 @@
 <div class="author">
-    <h1 class="author_heading">Hi, I am Raddy</h1>
+    <h1 class="author_heading">Hi, I am Thanh</h1>
     <p class="author__body">Web developer and content creator.</p>
 </div>
 
@@ -13,9 +13,9 @@
             <li>
                 <a href="/post/<%= post._id %>">
                     <span><%= post.title %></span>
-                    <span class="article-list__date"><%= post.createdAt ? post.createdAt.toDateString() : 'Không có ngày' %></span>
+                    <span class="article-list__date"><%= post.createdAt %></span>
                 </a>
-            </li>/post/
+            </li>
         <% }) %>
     </ul>
 
