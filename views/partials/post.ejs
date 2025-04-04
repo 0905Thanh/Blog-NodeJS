@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= data.title %> - NodeJs Blog</title>
+    <style>
+        /* Cấu trúc chung cho bài viết */
+        .post-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-container h1 {
+            font-size: 32px;
+            color: #333;
+        }
+
+        .post-container p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .post-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        .comment-form input[type="submit"] {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .comment-form input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .comments-section {
+            margin-top: 30px;
+        }
+
+        .comment {
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+        }
+
+        .comment p {
+            margin: 5px 0;
+        }
+
+        .comment strong {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="post-container">
+        <!-- Post Image -->
+        <% if (data.imageUrl) { %>
+            <img src="<%= data.imageUrl %>" alt="Post Image" class="post-image">
+        <% } %>
+        
+        <!-- Post Title -->
+        <h1><%= data.title %></h1>
+        <p>Posted by <%= data.author ? data.author.username : 'Unknown' %> on <%= data.createdAt.toLocaleDateString() %></p>
+        <p><%= data.body %></p>
+
+        <!-- Like Button -->
+        <div>
+            <form action="/post/<%= data._id %>/like" method="POST" style="display: inline;">
+                <button type="submit" class="btn"><%= data.likes ? data.likes.length : 0 %> Likes</button>
+            </form>
+        </div>
+
+        <!-- Comment Form -->
+        <div class="comment-form">
+            <h3>Add a Comment</h3>
+            <form action="/post/<%= data._id %>/comment" method="POST">
+                <textarea name="content" placeholder="Write your comment..." rows="3" required></textarea>
+                <br>
+                <input type="submit" value="Post Comment">
+            </form>
+        </div>
+
+        <!-- Display Comments -->
+        <div class="comments-section">
+            <h3>Comments</h3>
+            <% if (data.comments && data.comments.length > 0) { %>
+                <% data.comments.forEach(comment => { %>
+                    <div class="comment">
+                        <p><strong><%= comment.author || 'Unknown' %></strong> 
+                           - <%= comment.createdAt.toLocaleDateString() %></p>
+                        <p><%= comment.content %></p>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p>No comments yet.</p>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,31 +1,148 @@
-<div class="admin-title">
-    <h2>Posts</h2>
-    <a href="/add-post" class="button">+ Add New</a>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - NodeJs Blog</title>
+    <style>
+        /* Admin Dashboard Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
 
-<ul class="admin-posts">
+        /* Admin Title */
+        .admin-title {
+            /* background-color: #333; */
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
 
-    <% data.forEach(post => { %>
-     
-        <li>
-            <a href="/post/<%= post._id %>">
-                <%= post.title %> &nearr;
-            </a>
-            <div class="admin-post-controls">
-                <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
+        .admin-title h2 {
+            margin: 10;
+            font-size: 24px;
+        }
 
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
 
+        .button:hover {
+            background-color: #0056b3;
+        }
 
-                <form action="/delete-post/<%= post._id %>?_method=DELETE" method="POST">
-                    <input type="submit" value="Delete" class="btn-delete btn">
-                </form>
-            </div>
-        
-        </li>
+        /* Admin Posts List */
+        .admin-posts {
+            list-style: none;
+            padding: 20px;
+            margin: 0;
+        }
 
+        .admin-posts li {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
 
+        .admin-posts img {
+            max-width: 50px;
+            max-height: 50px;
+            vertical-align: middle;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
 
-    <% }) %>
+        .admin-posts a {
+            font-size: 18px;
+            color: #333;
+            text-decoration: none;
+        }
 
+        .admin-posts a:hover {
+            color: #007bff;
+        }
 
-</ul>
+        .admin-post-controls {
+            margin-left: auto;
+        }
+
+        .btn {
+            background-color: #28a745;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .admin-title {
+                padding: 10px;
+            }
+
+            .admin-posts li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .admin-post-controls {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-title">
+        <h2>Posts</h2>
+        <a href="/add-post" class="button">+ Add New</a>
+    </div>
+
+    <ul class="admin-posts">
+        <% data.forEach(post => { %>    
+            <li>
+                <% if (post.imageUrl) { %>
+                    <img src="<%= post.imageUrl %>" alt="Post Image">
+                <% } %>
+                <a href="/post/<%= post._id %>">
+                    <%= post.title %> ↗
+                </a>
+                <div class="admin-post-controls">
+                    <a href="/edit-post/<%= post._id %>" class="btn">Edit</a>
+                    <form action="/delete-post/<%= post._id %>?_method=DELETE" method="POST" style="display: inline;">
+                        <input type="submit" value="Delete" class="btn-delete btn">
+                    </form>
+                </div>
+            </li>
+        <% }) %>
+    </ul>
+
+</body>
+</html>

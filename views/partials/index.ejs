@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NodeJs Blog</title>
+    <style>
+        /* Tạo kiểu dáng cho tiêu đề trang */
+        .main-title {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            font-size: 36px;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        /* Danh sách bài viết */
+        .post-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Kiểu dáng cho mỗi bài viết */
+        .post {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .post:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hình ảnh bài viết */
+        .post-image {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            max-height: 200px;
+        }
+
+        /* Tiêu đề bài viết */
+        .post-title {
+            font-size: 24px;
+            margin: 15px;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        .post-title a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .post-title a:hover {
+            color: #007bff;
+        }
+
+        /* Thông tin bài viết (người đăng và ngày tạo) */
+        .post-meta {
+            font-size: 14px;
+            color: #777;
+            margin: 10px 15px;
+        }
+
+        /* Mô tả ngắn của bài viết */
+        .post-body {
+            font-size: 16px;
+            color: #555;
+            margin: 0 15px 15px 15px;
+        }
+
+        /* Liên kết phân trang */
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .next-page {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .next-page:hover {
+            background-color: #0056b3;
+        }
+
+        /* Điều chỉnh khi không có bài viết */
+        .no-posts {
+            text-align: center;
+            font-size: 18px;
+            color: #777;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="main-title">Welcome to NodeJs Blog</h1>
+
+    <% if (data.length > 0) { %>
+        <div class="post-list">
+            <% data.forEach(post => { %>
+                <div class="post">
+                    <% if (post.imageUrl) { %>
+                        <a href="/post/<%= post._id %>">
+                            <img src="<%= post.imageUrl %>" alt="Post Image" class="post-image">
+                        </a>
+                    <% } %>
+                    <h2 class="post-title"><a href="/post/<%= post._id %>"><%= post.title %></a></h2>
+                    <p class="post-meta">Posted by <%= post.author ? post.author.username : 'Unknown' %> on <%= post.createdAt.toLocaleDateString() %></p>
+                    <p class="post-body"><%= post.body.substring(0, 100) %>...</p>
+                </div>
+            <% }) %>
+
+            <% if (nextPage) { %>
+                <div class="pagination">
+                    <a href="/?page=<%= nextPage %>" class="next-page">Next Page</a>
+                </div>
+            <% } %>
+        </div>
+    <% } else { %>
+        <p class="no-posts">No posts available.</p>
+    <% } %>
+</body>
+</html>

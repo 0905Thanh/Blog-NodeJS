@@ -1,25 +1,104 @@
-<header class="header">
-    <a href="/" class="header_logo">NodeJs</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NodeJs Blog</title>
+    <style>
+        /* Cấu trúc chung cho header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
 
-    <nav class="header__nav">
-        <ul>
-            <li>
-                <a href="/" class="<%= isActiveRoute('/', currentRoute) %>">Home</a>
-            </li>
-            <li>
-                <a href="/about" class="<%= isActiveRoute('/about', currentRoute) %>">About</a>
-            </li>
-            <li>
-                <a href="/contact" class="<%= isActiveRoute('/contact', currentRoute) %>">Contact</a>
-            </li>
-        </ul>
+        /* Logo */
+        .logo h1 {
+            font-size: 28px;
+            margin: 0;
+            font-weight: bold;
+        }
 
-    </nav>
+        .logo a {
+            text-decoration: none;
+            color: white;
+        }
 
-    <div class="header__button">
-        <button class="searchBtn" aria-expanded="false">
-            Search
-        </button>
-    </div>
- 
-</header>
+        /* Navbar */
+        .nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav ul li {
+            margin: 0 15px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #007bff;
+        }
+
+        .admin-link {
+            background-color: #ff6600;
+            padding: 5px 15px;
+            border-radius: 5px;
+        }
+
+        .admin-link:hover {
+            background-color: #e65c00;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav ul li {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="/"><h1>NodeJs Blog</h1></a>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/about" class="nav-link">About</a></li>
+
+                <% if (isLoggedIn) { %>
+                    <li><a href="/user/create-post" class="nav-link">Create Post</a></li>
+                    <li><a href="/user/logout" class="nav-link">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/user/login" class="nav-link">Login</a></li>
+                    <li><a href="/user/register" class="nav-link">Register</a></li>
+                <% } %>
+                <li><a href="/admin" class="nav-link admin-link">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+</body>
+</html>

@@ -3,21 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= locals.title %></title>
-    <meta name="description" content="<%= locals.description %>">
+    <title><%= locals.title || 'NodeJs Blog' %></title>
+    <meta name="description" content="<%= locals.description || 'Simple Blog created with NodeJs, Express & MongoDb.' %>">
     <link rel="stylesheet" href="/css/style.css">
-    <script type="text/javascript" defer src="/js/script.js"></script>
+    <script src="/js/script.js" defer></script>
 </head>
 <body>
-    
-    <%- include('../partials/search.ejs')  %>
-    <div class="container">
-        <%- include('../partials/header.ejs')  %>
-        <main class="main">
-            <%- body %>
-        </main>
-        <%- include('../partials/footer.ejs')  %>
-    </div>
-
+    <%- include('../partials/header') %>
+    <main class="main container">
+        <%- body %>
+    </main>
+    <%- include('../partials/footer') %>
 </body>
 </html>

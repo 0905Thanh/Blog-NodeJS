@@ -1,13 +1,13 @@
-<div class="searchBar">
-    <div class="container">
-        <form action="/search" class="search__from" role="search" method="POST">
-            <input
-            type="search" 
-            aria-label="Search" 
-            id="searchInput" 
-            name="searchTerm" 
-            placeholder="Search the site..."/>
-        </form>
-        <div id="searchClose">Close</div>
-    </div>
-</div>
+<h1>Search Results</h1>
+
+<% if (data.length > 0) { %>
+    <% data.forEach(post => { %>
+        <div class="post">
+            <h2><a href="/post/<%= post._id %>"><%= post.title %></a></h2>
+            <p>Posted by <%= post.author ? post.author.username : 'Unknown' %> on <%= post.createdAt.toLocaleDateString() %></p>
+            <p><%= post.body.substring(0, 100) %>...</p>
+        </div>
+    <% }) %>
+<% } else { %>
+    <p>No results found.</p>
+<% } %>
